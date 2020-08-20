@@ -7,16 +7,15 @@ const Waves = () => (
     <Head>
       <title>segment-sixty - waves</title>
       <link rel="icon" href="/favicon.ico" />
-      <ScriptTag type="text/javascript" src="p5.min.js"/>
+      <ScriptTag type="text/javascript" src="../js/lib/p5.min.js"/>
     </Head>
 
     <main>
       <h1 className="title">
-        TEST
+        WAVES
       </h1>
 
-      
-      <ScriptTag type="text/javascript" src="sketches/waves_script.js" />
+      <ScriptTag type="text/javascript" src="../js/sketches/waves_script.js" />
     </main>
 </div>
 )
