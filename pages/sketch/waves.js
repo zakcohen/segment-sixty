@@ -11,10 +11,9 @@ const Waves = () => (
     </Head>
 
     <main>
-      <h1 className="title">
-        WAVES
-      </h1>
+      <h2 className="subtitle">waves</h2>
 
+      <div id="sketch"/>
       <ScriptTag type="text/javascript" src="../js/sketches/waves_script.js" />
     </main>
 </div>
