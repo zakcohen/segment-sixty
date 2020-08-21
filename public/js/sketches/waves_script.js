@@ -1,6 +1,7 @@
 function setup() {
   let myCanvas = createCanvas(600, 600);
-  myCanvas.parent('sketch');
+  myCanvas.parent('sketchContainer');
+  myCanvas.addClass('sketch');
   noFill();
 }
   

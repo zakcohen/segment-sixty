@@ -83,6 +83,15 @@ a {
 
 .subtitle {
     font-family: 'Dosis', sans-serif;
+    width: 100%;
+    border-top: 1px solid #eaeaea;
+    display: flex;
+    justify-content: left;
+    padding-left: 32px;
+}
+
+.sketch {
+
 }
 
 code {
@@ -138,5 +147,10 @@ code {
     .grid {
       width: 100%;
       flex-direction: column;
+    }
+
+    .sketch {
+        width: 100% !important;
+        height: unset !important;
     }
 }

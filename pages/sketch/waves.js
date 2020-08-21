@@ -13,7 +13,7 @@ const Waves = () => (
     <main>
       <h2 className="subtitle">waves</h2>
 
-      <div id="sketch"/>
+      <div id="sketchContainer"/>
       <ScriptTag type="text/javascript" src="../js/sketches/waves_script.js" />
     </main>
 </div>
