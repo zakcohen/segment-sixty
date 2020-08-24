@@ -1,3 +1,5 @@
+/// <reference path="../lib/p5.global-mode.d.ts" />
+
 function setup() {
   let myCanvas = createCanvas(600, 600);
   myCanvas.parent('sketchContainer');
