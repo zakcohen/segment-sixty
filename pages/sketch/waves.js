@@ -8,6 +8,7 @@ const Waves = () => (
       <title>segment-sixty - waves</title>
       <link rel="icon" href="/favicon.ico" />
       <ScriptTag type="text/javascript" src="../js/lib/p5.min.js"/>
+      <ScriptTag type="text/javascript" src="../js/lib/p5.svg.js"/>
     </Head>
 
     <main>
