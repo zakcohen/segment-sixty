@@ -1,6 +1,6 @@
 /// <reference path="../lib/p5.global-mode.d.ts" />
 
-var USE_SVG = true;
+var USE_SVG = false;
 
 var WIDTH = 512;
 var HEIGHT = 512;
