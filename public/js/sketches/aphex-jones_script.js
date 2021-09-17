@@ -5,6 +5,8 @@ var SHOULD_SAVE = false;
 var DBG = false;
 var FORCE_SQ = false;
 
+var createMode = false;
+
 var WIDTH = 512;
 var HEIGHT = 512;
 var CENTER_X = WIDTH / 2;
@@ -132,12 +134,19 @@ function canClose(pointX, pointY) {
 
 function draw() {
   background(255);
-  strokeWeight(1);
-  stroke(50);
 
-  fill(50);
-  noStroke();
-  drawRoundedPath();
+  if (verts.length >= 2) {
+    fill(50);
+    noStroke();
+    drawRoundedPath();
+  } 
+
+  if (createMode) {
+    fill(50, 5, 100);
+    var snappedMouse = gridToScreen(...screenToGrid(mouseX, mouseY));
+    console.log(snappedMouse);
+    circle(...snappedMouse, 20);
+  }
 
   if (SHOULD_SAVE) {
     save("aphex-jones-" + Date.now() + ".svg");
@@ -149,16 +158,27 @@ function draw() {
 
 function keyPressed() {
   // "s"
-  if (keyCode != 83) {
+  if (keyCode == 83) {
+    SHOULD_SAVE = true;
+    createMode = false;
+    setCanvas();
     return;
   }
 
-  SHOULD_SAVE = true;
-  setCanvas();
+  // "c"
+  if (keyCode == 67) {
+    createMode = true;
+    verts = [];
+    return;
+  }
 }
 
 function mouseClicked() {
-  buildShape();
+  if (createMode) {
+    verts[verts.length] = screenToGrid(mouseX, mouseY);
+  } else {
+    buildShape();
+  }
 }
 
 // Path rounding
@@ -182,13 +202,22 @@ function computeStep(x1, y1, x2, y2, radius) {
   return [drawSegment, stepX, stepY];
 }
 
+function screenToGrid(x, y) {
+  return [
+    floor(map(x, 0, WIDTH, 0, GRID_WIDTH)),
+    floor(map(y, 0, HEIGHT, 0, GRID_HEIGHT))
+  ];
+}
+
+function gridToScreen(x, y) {
+  return [
+    map(x, 0, GRID_WIDTH, 0, WIDTH),
+    map(y, 0, GRID_HEIGHT, 0, HEIGHT)
+   ];
+}
 
 function drawRoundedPath() {
-   const scaledVerts = verts.map(x => [
-     map(x[0], 0, GRID_WIDTH, 0, WIDTH),
-     map(x[1], 0, GRID_HEIGHT, 0, HEIGHT)
-    ]);
-
+  const scaledVerts = verts.map(x => gridToScreen(x[0], x[1]));
 
   stroke(50);
   strokeWeight(1);
