@@ -13,6 +13,8 @@ var HEIGHT = 512;
 var CENTER_X = WIDTH / 2;
 var CENTER_Y = HEIGHT / 2; 
 
+var noiseOff = 0;
+
 function setCanvas() {
   if (SHOULD_SAVE) {
     let myCanvas = createCanvas(WIDTH, HEIGHT, SVG);
@@ -41,14 +43,14 @@ function draw() {
   for (var i = 1; i < 20; i++) {
     for (var j = 1; j < 20; j++) {
       rect(
-        i * normalSize * 2 + random(-10, 10) * 0.1,
-        j * normalSize * 2 + random(-10, 10) * 0.1,
-        normalSize + random(3),
-        normalSize + random(2),
+        i * normalSize * 2 + scaleNoise(noiseOff, i, -1, 1),
+        j * normalSize * 2 + scaleNoise(noiseOff, j, -1, 1),
+        normalSize + scaleNoise(noiseOff, i + j, 0, 4),
+        normalSize + scaleNoise(noiseOff, i * j, 0, 2),
         normalSize / 2);
     }
   }
-
+  noiseOff += 0.01;
 
   if (SHOULD_SAVE) {
     save("next-geist-" + Date.now() + ".svg");
@@ -56,6 +58,10 @@ function draw() {
     SHOULD_SAVE = false;
     window.location.reload(false);
   }
+}
+
+function scaleNoise(n1, n2, start, end) {
+  return map(noise(n1, n2), 0, 1, start, end);
 }
 
 function toggleLoop() {
