@@ -28,9 +28,13 @@ function draw() {
   strokeWeight(0.3);
   stroke(0);
 
+  let progress = map(sin(millis() * 0.001), -1, 1, 0, 1);
+  let startSize = lerp(3, 100, progress);
+  let lineCount = lerp(400, 50, progress);
+
   noFill();
-  for (var i = 3; i < 200; i++) {
-    polygon(CENTER_X - radiusForPoints(20, i), CENTER_Y, 20, i);
+  for (var i = 3; i < lineCount; i++) {
+    polygon(CENTER_X - radiusForPoints(startSize, i), CENTER_Y, startSize, i);
   }
 
   fill(0);
@@ -43,8 +47,8 @@ function draw() {
   translate(CENTER_X, CENTER_Y);
   rotate(PI);
   translate(-CENTER_X, -CENTER_Y);
-  for (var i = 3; i < 200; i++) {
-    polygon(CENTER_X - radiusForPoints(20, i), CENTER_Y, 20, i);
+  for (var i = 3; i < lineCount; i++) {
+    polygon(CENTER_X - radiusForPoints(startSize, i), CENTER_Y, startSize, i);
   }
   pop();
 
