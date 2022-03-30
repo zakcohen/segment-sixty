@@ -15,6 +15,8 @@ let TEXT_HEIGHT = 30;
 var textPosY = TEXT_HEIGHT;
 let TEXT = "BENDY";
 
+let textMode = true;
+
 function setup() {
   let myCanvas = createCanvas(WIDTH, HEIGHT, WEBGL);
   myCanvas.parent('sketchContainer');
@@ -30,21 +32,100 @@ function setup() {
 }
 
 function draw() {
-  background(255);
-  orbitControl();
+  background(0);
+  theSurface.blendMode(BLEND);
   theSurface.background(0);
 
-  var horizontalProgress = (frameCount % 200) / 200;
+  var progress = (frameCount % 200) / 200;
 
-  let textPosX = map(horizontalProgress, 0, 1, -TEXT_WIDTH, SURFACE_WIDTH);
-  if (horizontalProgress == 0) {
-      textPosY = random(TEXT_HEIGHT / 2, SURFACE_HEIGHT + (TEXT_HEIGHT / 2));
+  if (textMode) {
+    let textPosX = map(progress, 0, 1, -TEXT_WIDTH, SURFACE_WIDTH);
+    if (progress == 0) {
+        textPosY = random(TEXT_HEIGHT / 2, SURFACE_HEIGHT + (TEXT_HEIGHT / 2));
+    }
+    theSurface.fill(255);
+    theSurface.noStroke();
+    theSurface.text(TEXT, textPosX, textPosY);
+  } else {
+    theSurface.blendMode(ADD);
+    theSurface.noFill();
+    theSurface.strokeWeight(
+        map(pSin(frameCount), 0, 1, 0, 20));
+    theSurface.stroke(255, 0, 0);
+    theSurface.circle(
+          SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+          pSin(frameCount) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 255, 0);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 1) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 0, 255);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 2) * (SURFACE_WIDTH - 20)
+    );
+
+    theSurface.stroke(255, 0, 0);
+    theSurface.circle(
+          SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+          pSin(frameCount + 20) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 255, 0);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 21) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 0, 255);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 22) * (SURFACE_WIDTH - 20)
+    );
+
+    theSurface.stroke(255, 0, 0);
+    theSurface.circle(
+          SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+          pSin(frameCount + 40) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 255, 0);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 41) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 0, 255);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 42) * (SURFACE_WIDTH - 20)
+    );
+
+    theSurface.stroke(255, 0, 0);
+    theSurface.circle(
+          SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+          pSin(frameCount + 70) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 255, 0);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 71) * (SURFACE_WIDTH - 20)
+    );
+    theSurface.stroke(0, 0, 255);
+    theSurface.circle(
+        SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+        pSin(frameCount + 72) * (SURFACE_WIDTH - 20)
+    );
+
+    //   theSurface.stroke(128);
+    //   theSurface.circle(
+    //     SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+    //     pCos(frameCount) * SURFACE_WIDTH * sqrt(2)
+    //   );
+
+      //theSurface.circle(
+      //    SURFACE_WIDTH / 2, SURFACE_HEIGHT / 2,
+      //    map(progress, 0, 1, 0, SURFACE_WIDTH * sqrt(2))
+      //);
   }
-
-
-  theSurface.fill(255);
-  theSurface.noStroke();
-  theSurface.text(TEXT, textPosX, textPosY);
   
   push();
   translate(0, 0, -20);
@@ -52,6 +133,19 @@ function draw() {
   rotateY(-45);
   textured_scoop(theSurface, 150, 150, 150);
   pop();
+}
+
+function pSin(angle) {
+    return (sin(angle) + 1.0) / 2.0;
+}
+
+function pCos(angle) {
+    return (cos(angle) + 1.0) / 2.0;
+}
+
+function mouseClicked() {
+    if (textMode) textMode = false;
+    else textMode = true;
 }
 
 function textured_scoop(tex, width, height, depth) {
